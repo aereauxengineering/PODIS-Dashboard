@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Query Builder</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Plotly -->
+    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+
+    <!-- PapaParse -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+    <!-- Shared Data Engine -->
+    <script src="script.js" defer></script>
+
+    <!-- Query Builder Logic -->
+    <script src="query.js" defer></script>
+
+    <style>
+        /* Page-specific layout */
+        .query-container {
+            margin-left: 260px;
+            padding: 20px;
+        }
+
+        .query-panel {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .query-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .query-row select,
+        .query-row input {
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        #resultsContainer {
+            margin-top: 25px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =============================== -->
+    <!-- SIDEBAR NAVIGATION -->
+    <!-- =============================== -->
+    <div class="sidebar">
+        <h2>Dashboard</h2>
+        <ul>
+            <li><a href="index.html">Summary Dashboard</a></li>
+            <li><a href="query.html" class="active">Query Builder</a></li>
+            <li><a href="builder.html">Custom Dashboard</a></li>
+        </ul>
+    </div>
+
+
+    <!-- =============================== -->
+    <!-- QUERY BUILDER PAGE CONTENT -->
+    <!-- =============================== -->
+    <div class="query-container">
+
+        <h1>Query Builder</h1>
+        <p>Create custom queries, filters, and visualizations from your inventory data.</p>
+
+        <!-- =============================== -->
+        <!-- FILTER BUILDER PANEL -->
+        <!-- =============================== -->
+        <div class="query-panel">
+            <h2>Filters</h2>
+
+            <div id="filterArea"></div>
+
+            <button id="addFilterBtn">Add Filter</button>
+        </div>
+
+        <!-- =============================== -->
+        <!-- GROUPING + AGGREGATION PANEL -->
+        <!-- =============================== -->
+        <div class="query-panel">
+            <h2>Grouping & Aggregation</h2>
+
+            <div class="query-row">
+                <select id="groupBySelect">
+                    <option value="">No Grouping</option>
+                </select>
+
+                <select id="aggregateSelect">
+                    <option value="sum">Sum</option>
+                    <option value="count">Count</option>
+                    <option value="avg">Average</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- =============================== -->
+        <!-- VISUALIZATION PANEL -->
+        <!-- =============================== -->
+        <div class="query-panel">
+            <h2>Visualization</h2>
+
+            <div class="query-row">
+                <select id="chartTypeSelect">
+                    <option value="table">Table</option>
+                    <option value="bar">Bar Chart</option>
+                    <option value="pie">Pie Chart</option>
+                    <option value="line">Line Chart</option>
+                    <option value="card">Summary Card</option>
+                </select>
+
+                <button id="runQueryBtn">Run Query</button>
+            </div>
+        </div>
+
+        <!-- =============================== -->
+        <!-- RESULTS AREA -->
+        <!-- =============================== -->
+        <div id="resultsContainer"></div>
+
+    </div>
+
+</body>
+</html>

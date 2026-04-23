@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podis Web Dashboard</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <!-- Main Script -->
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Podis Dashboard</h2>
+
+        <ul>
+            <li><a href="index.html" class="active">Summary Dashboard</a></li>
+            <li><a href="query.html">Query Builder</a></li>
+            <li><a href="builder.html">Custom Dashboard</a></li>
+        </ul>
+
+        <hr>
+
+        <h3 style="padding-left:20px;">Data Source</h3>
+        <p style="padding-left:20px; font-size:14px;">
+            Using: <strong>Data Extract - Inventory Count.csv</strong>
+        </p>
+
+        <button id="refreshBtn" class="refresh-btn">Reload Data</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <div class="top-bar">
+            <h1>RSA Inventory</h1>
+        </div>
+
+        <!-- SUMMARY CARDS -->
+        <div class="card-container">
+            <div class="card" id="typeTotalsCard"></div>
+            <div class="card" id="roselandTotalsCard"></div>
+            <div class="card" id="mindenTotalsCard"></div>
+            <div class="card" id="card3"></div>
+        </div>
+
+        <br>
+
+        <!-- GLOBAL TYPE TOTALS -->
+        <h2>Totals by Type (All Warehouses)</h2>
+        <div class="card-container" id="typeSummaryCards"></div>
+
+        <br>
+
+        <!-- WAREHOUSE SELECTOR -->
+        <h2>Warehouse Breakdown</h2>
+        <select id="warehouseSelect"></select>
+
+        <div class="card-container" id="warehouseTypeCards"></div>
+
+        <br>
+
+        <!-- CHART -->
+        <h2>Quantity On Hand by Parish</h2>
+        <div id="chart1"></div>
+
+        <br>
+
+        <!-- FULL TABLE -->
+        <h2>Full Inventory Table</h2>
+        <div id="tableContainer"></div>
+
+    </div>
+
+</body>
+</html>

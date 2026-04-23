@@ -1,0 +1,119 @@
+/* Remove horizontal scroll globally */
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background: #1f2937;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow-y: auto;
+    padding-top: 20px;
+    box-sizing: border-box;
+}
+
+    .sidebar h2 {
+        color: #ffffff;
+        font-size: 20px;
+        font-weight: 700;
+        padding: 20px;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .sidebar ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .sidebar ul li {
+            margin-bottom: 8px;
+        }
+
+            .sidebar ul li a {
+                color: #e5e7eb;
+                font-size: 16px;
+                font-weight: 500;
+                padding: 12px 20px;
+                display: block;
+                border-radius: 6px;
+                text-decoration: none;
+                transition: 0.2s;
+            }
+
+                .sidebar ul li a:hover {
+                    background: rgba(255, 255, 255, 0.1);
+                    color: #ffffff;
+                }
+
+                .sidebar ul li a.active {
+                    background: rgba(255, 255, 255, 0.2);
+                    color: #ffffff;
+                    font-weight: 600;
+                }
+
+/* Main content area (index.html) */
+.main-content {
+    margin-left: 260px;
+    padding: 20px;
+    width: auto;
+    max-width: calc(100% - 260px);
+    box-sizing: border-box;
+}
+
+/* Query page container */
+.query-container {
+    margin-left: 260px;
+    padding: 20px;
+    width: auto;
+    max-width: calc(100% - 260px);
+    box-sizing: border-box;
+}
+
+/* Plotly charts auto-resize */
+.js-plotly-plot {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* Tables auto-resize */
+table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+}
+
+    table td, table th {
+        word-wrap: break-word;
+    }
+
+/* Filter group card style */
+.filter-group {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.group-header {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.filter-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
