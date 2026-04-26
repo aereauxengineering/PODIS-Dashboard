@@ -70,6 +70,16 @@ html, body {
     box-sizing: border-box;
 }
 
+.card-container {
+    display: flex;       /* This aligns items in a row */
+    flex-wrap: wrap;     /* This lets cards move to the next line if the screen is too small */
+    gap: 20px;           /* This adds space between the cards */
+    padding: 20px;
+    align-items: flex-start; /* Keeps cards aligned at the top */
+}
+
+
+
 /* Query page container */
 .query-container {
     margin-left: 260px;
@@ -85,17 +95,24 @@ html, body {
     max-width: 100% !important;
 }
 
-/* Tables auto-resize */
+/* Tables styling with cell borders */
 table {
     width: 100%;
-    max-width: 100%;
     border-collapse: collapse;
+    border: 1px solid #ddd; /* Outer border of the table */
 }
 
-    table td, table th {
-        word-wrap: break-word;
-    }
+table th, table td {
+    border: 1px solid #ddd; /* This adds the cell borders */
+    padding: 8px;           /* Adds some breathing room inside cells */
+    text-align: left;
+    word-wrap: break-word;
+}
 
+table th {
+    background-color: #f3f4f6; /* Light gray background for headers */
+    font-weight: 600;
+}
 /* Filter group card style */
 .filter-group {
     background: #ffffff;
@@ -116,4 +133,27 @@ table {
     display: flex;
     gap: 10px;
     margin-bottom: 10px;
+}
+
+.dashboard-banner {
+    width: 100%;
+    height: 150px; /* Adjust height as needed */
+    background-color: #000000;
+    background-image: url('LANG.png');
+    background-size: contain; /* Ensures image fills the area without stretching */
+      background-repeat: no-repeat; /* Prevents the image from tiling */
+    background-position: center; /* Keeps the middle of the image visible */
+    border-radius: 12px;
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    margin-bottom: 20px;
+    color: rgb(0, 0, 0);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.dashboard-banner h1 {
+    font-size: 28px;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }

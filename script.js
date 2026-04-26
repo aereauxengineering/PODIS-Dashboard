@@ -22,11 +22,13 @@ function loadData() {
             const data = results.data.map(normalizeRow);
 
             // Build dashboard components
-            buildTotalQuantityByType(data);     // RSA Table
-            buildRoselandTotalsCard(data);      // Roseland Table
-            buildMindenTotalsCard(data);        //Minden Table
-            buildSummaryCards(data);            // Available + Transit
-            buildGlobalTypeCards(data);         // All warehouses
+           renderInventoryCard(data, "GOHSEP Totals", null, "typeTotalsCard");
+           renderInventoryCard(data, "Roseland RSA", "Roseland Warehouse", "roselandTotalsCard");
+           renderInventoryCard(data, "Camp Minden", "Camp Minden", "mindenTotalsCard");
+           renderInventoryCard(data, "Camp Villere", "Camp Villere", "villereTotalsCard");
+
+           /*  buildSummaryCards(data);  */           // Available + Transit
+          /*   buildGlobalTypeCards(data);  */        // All warehouses
             populateWarehouseDropdown(data);    // Dropdown + per warehouse
             buildCharts(data);                  // Parish chart
             buildTable(data);                   // Full table
@@ -69,113 +71,63 @@ function normalizeRow(row) {
 // 3. NEW FEATURE — TOTAL QUANTITY BY TYPE (ALL WAREHOUSES)
 //    Replaces the old “Total Quantity On Hand” card
 // ====================================================
-function buildTotalQuantityByType(data) {
+function renderInventoryCard(data, title, filterValue, elementId) {
+    // 1. Filter data (if filterValue is provided, otherwise show all for "GOHSEP Totals")
+    const filtered = filterValue ? data.filter(r => r.Warehouse === filterValue) : data;
+    
     const typeTotals = {};
-
-    // Sum Quantity On Hand by Type
-    data.forEach(row => {
-        if (!typeTotals[row.Type]) typeTotals[row.Type] = 0;
-        typeTotals[row.Type] += row.QtyOnHand;
-    });
-
-    // Build scrollable table inside a card
-    let html = `
-        <h3>GOHSEP Totals</h3>
-        <div style="max-height: 300px; overflow-y: auto;">
-            <table style="width:100%; font-size:14px;">
-                <tr>
-                    <th style="text-align:left;">Type</th>
-                    <th style="text-align:right;">Total</th>
-                </tr>
-    `;
-
-    Object.keys(typeTotals).sort().forEach(type => {
-        html += `
-            <tr>
-                <td>${type || "(blank)"}</td>
-                <td style="text-align:right;">${typeTotals[type].toLocaleString()}</td>
-            </tr>
-        `;
-    });
-
-    html += `</table></div>`;
-
-    document.getElementById("typeTotalsCard").innerHTML = html;
-}
-
-function buildRoselandTotalsCard(data) {
-    // Filter only Roseland - RSA
-    const filtered = data.filter(r => r.Warehouse === "Roseland Warehouse");
-
-    const typeTotals = {};
-
     filtered.forEach(row => {
         if (!typeTotals[row.Type]) typeTotals[row.Type] = 0;
         typeTotals[row.Type] += row.QtyOnHand;
     });
 
+    // 2. The standard "Small Card" HTML template
     let html = `
-        <h3>Roseland RSA</h3>
-        <div style="max-height: 300px; overflow-y: auto;">
-            <table style="width:100%; font-size:14px;">
-                <tr>
-                    <th style="text-align:left;">Type</th>
-                    <th style="text-align:right;">Total</th>
-                </tr>
+      <div style="border: 1px solid #ddd; border-radius: 8px; padding: 10px; width: 250px; 
+                  box-shadow: 0 2px 4px rgba(0,0,0,0.05); font-family: sans-serif; 
+                  display: inline-block; vertical-align: top; margin: 10px; background: white;">
+        <h3 style="margin-top: 0; font-size: 15px; color: #333; border-bottom: 1px solid #eee; padding-bottom: 5px; text-align: center;">
+            ${title}
+        </h3>
+        <div style="max-height: 180px; overflow-y: auto;">
+          <table style="width:100%; font-size:12px; border-collapse: collapse;">
+            <thead>
+              <tr style="color: #888; border-bottom: 1px solid #eee;">
+                <th style="text-align:left; padding: 4px 0;">Type</th>
+                <th style="text-align:right; padding: 4px 0;">Total</th>
+              </tr>
+            </thead>
+            <tbody>
     `;
 
     Object.keys(typeTotals).sort().forEach(type => {
         html += `
-            <tr>
-                <td>${type || "(blank)"}</td>
-                <td style="text-align:right;">${typeTotals[type].toLocaleString()}</td>
-            </tr>
+          <tr style="border-bottom: 1px solid #fafafa;">
+            <td style="padding: 4px 0;">${type || "(blank)"}</td>
+            <td style="text-align:right; font-weight: 600;">${typeTotals[type].toLocaleString()}</td>
+          </tr>
         `;
     });
 
-    html += `</table></div>`;
-
-    document.getElementById("roselandTotalsCard").innerHTML = html;
+    html += `</tbody></table></div></div>`;
+    
+    document.getElementById(elementId).innerHTML = html;
 }
 
-function buildMindenTotalsCard(data) {
-    // Filter only Camp Minden
-    const filtered = data.filter(r => r.Warehouse === "Camp Minden");
+// --- HOW TO USE IT ---
+// Call this one function for every card you need:
+renderInventoryCard(data, "GOHSEP Totals", null, "typeTotalsCard");
+renderInventoryCard(data, "Roseland RSA", "Roseland Warehouse", "roselandTotalsCard");
+renderInventoryCard(data, "Camp Minden", "Camp Minden", "mindenTotalsCard");
+renderInventoryCard(data, "Camp Villere", "Camp Villere", "villereTotalsCard");
 
-    const typeTotals = {};
 
-    filtered.forEach(row => {
-        if (!typeTotals[row.Type]) typeTotals[row.Type] = 0;
-        typeTotals[row.Type] += row.QtyOnHand;
-    });
 
-    let html = `
-        <h3>Camp Minden</h3>
-        <div style="max-height: 300px; overflow-y: auto;">
-            <table style="width:100%; font-size:14px;">
-                <tr>
-                    <th style="text-align:left;">Type</th>
-                    <th style="text-align:right;">Total</th>
-                </tr>
-    `;
 
-    Object.keys(typeTotals).sort().forEach(type => {
-        html += `
-            <tr>
-                <td>${type || "(blank)"}</td>
-                <td style="text-align:right;">${typeTotals[type].toLocaleString()}</td>
-            </tr>
-        `;
-    });
-
-    html += `</table></div>`;
-
-    document.getElementById("mindenTotalsCard").innerHTML = html;
-}
 // ====================================================
 // 4. SUMMARY CARDS (Available + Transit ONLY)
 // ====================================================
-function buildSummaryCards(data) {
+/* function buildSummaryCards(data) {
 
     const totalAvailable = data.reduce((sum, r) => sum + r.QtyAvailable, 0);
     const totalTransit = data.reduce((sum, r) => sum + r.QtyTransit, 0);
@@ -190,12 +142,12 @@ function buildSummaryCards(data) {
         <p>${totalTransit.toLocaleString()}</p>
     `;
 }
-
+ */
 
 // ====================================================
 // 5. GLOBAL TYPE TOTALS (ALL WAREHOUSES)
 // ====================================================
-function buildGlobalTypeCards(data) {
+/* function buildGlobalTypeCards(data) {
     const typeTotals = {};
 
     data.forEach(row => {
@@ -214,7 +166,7 @@ function buildGlobalTypeCards(data) {
     });
 
     document.getElementById("typeSummaryCards").innerHTML = html;
-}
+} */
 
 
 // ====================================================
