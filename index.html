@@ -31,7 +31,7 @@
 
         <h3 style="padding-left:20px;">Data Source</h3>
         <p style="padding-left:20px; font-size:14px;">
-            Using: <strong>Data Extract - Inventory Count.csv</strong>
+            Using: <strong>RSAInventoryReport.csv</strong>
         </p>
 
         <button id="refreshBtn" class="refresh-btn">Reload Data</button>
@@ -39,6 +39,11 @@
 
     <!-- Main Content -->
     <div class="main-content">
+
+        <div class="dashboard-banner">
+        <!-- Optional: Add text on top of the banner -->
+       <!--  <h1>Inventory Dashboard</h1> -->
+        </div>
 
         <div class="top-bar">
             <h1>RSA Inventory</h1>
@@ -49,14 +54,17 @@
             <div class="card" id="typeTotalsCard"></div>
             <div class="card" id="roselandTotalsCard"></div>
             <div class="card" id="mindenTotalsCard"></div>
-            <div class="card" id="card3"></div>
-        </div>
+            <div class="card" id="villereTotalsCard"></div>
 
+
+        </div>
+  <!--           <div class="card" id="card2"></div>     
+            <div class="card" id="card3"></div> -->
         <br>
 
         <!-- GLOBAL TYPE TOTALS -->
-        <h2>Totals by Type (All Warehouses)</h2>
-        <div class="card-container" id="typeSummaryCards"></div>
+<!--         <h2>Totals by Type (All Warehouses)</h2>
+        <div class="card" id="typeSummaryCards"></div> -->
 
         <br>
 
@@ -64,7 +72,7 @@
         <h2>Warehouse Breakdown</h2>
         <select id="warehouseSelect"></select>
 
-        <div class="card-container" id="warehouseTypeCards"></div>
+        <div class="filter-row" id="warehouseTypeCards"></div>
 
         <br>
 
